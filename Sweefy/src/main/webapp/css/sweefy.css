@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+body {
+	padding: auto 10px auto 10px;
+	margin: 30px 5px 30px 5px;
+	background-color: #F9F9F9;
+	font-family: 'メイリオ', Meiryo;
+	word-wrap: break-word;
+}
+
+.canvas {
+	text-align: left;
+	max-width: 1260px;
+	min-width: 950px;
+	margin: 0px auto 0px auto;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Sweefy</title>
+	<link rel="stylesheet" href="/sweefy/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/sweefy/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="/sweefy/css/sweefy.css">
+	<script src="/sweefy/js/jquery-1.11.1.min.js"></script>
+	<script src="/sweefy/js/bootstrap.min.js"></script>
+</head>
+	<body>
+		<div class="canvas">
+			<h2>Welcome to Sweefy.</h2>
+			<textarea id="chatlog" readonly></textarea>
+			<br />
+			<input id="msg" type="text" />
+			<button type="submit" id="btnSend">Send</button>
+			<button type="submit" id="btnClose">Close</button>
+		</div>
+		<script>
+
+			$(function()
+			{
+				// Create websocket
+				var ws = new WebSocket('ws://localhost:8080/sweefy/wschat');
+
+				// onOpen
+				ws.onopen = function()
+				{
+				};
+
+				// onRecv
+				ws.onmessage = function(message)
+				{
+					$('#chatlog').val($('#chatlog').val() + '\n' + message.data);
+				};
+
+				// onError
+				ws.onerror = function(evt)
+				{
+					$('#chatlog').val($('#chatlog').val() + '\n' + evt.data);
+				}
+
+				// onSend
+				$('#btnSend').click(function()
+				{
+					ws.send($('#msg').val());
+					$('#msg').val('');
+				});
+
+				// onClose
+				$('#btnClose').click(function()
+				{
+					ws.close();
+				});
+			});
+
+		</script>
+	</body>
+</html>
